@@ -1,22 +1,38 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
+import { ValidationPipe } from '@nestjs/common';
+import { NestFactory }    from '@nestjs/core';
+import session            from 'express-session';
+import passport           from 'passport';
+import { join }           from 'path';
+import createFileStore    from 'session-file-store';
+import { AppModule }      from './app/app.module';
 
-import { Logger } from '@nestjs/common';
-import { NestFactory } from '@nestjs/core';
-
-import { AppModule } from './app/app.module';
+const FileStore = createFileStore(session);
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  const globalPrefix = 'api';
-  app.setGlobalPrefix(globalPrefix);
-  const port = process.env.PORT || 3333;
-  await app.listen(port);
-  Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
-  );
+  const app          = await NestFactory.create(AppModule);
+  // const globalPrefix = 'api';
+
+  // app.setGlobalPrefix(globalPrefix);
+
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
+
+  app.use(session({
+    secret: process.env.COOKIE_SECRET!,
+    resave: true,
+    saveUninitialized: true,
+    rolling: true,
+    store: new FileStore({
+      path: join(process.cwd(), '.sessions'),
+    }),
+    cookie: {
+      maxAge: 24 * 60 * 60 * 1000, // 1d
+    },
+  }));
+
+  app.use(passport.initialize());
+  app.use(passport.session());
+
+  await app.listen(process.env.PORT);
 }
 
 bootstrap();

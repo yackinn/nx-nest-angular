@@ -1,12 +1,13 @@
 import { Controller, Get } from '@nestjs/common';
+import { Message }         from '@nx-angular-nest/api-interfaces';
+import { AppService }      from './app.service';
 
-import { Message } from '@nx-angular-nest/api-interfaces';
-
-import { AppService } from './app.service';
-
-@Controller()
+@Controller('api')
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+
+  constructor(
+    private readonly appService: AppService
+  ) {}
 
   @Get('hello')
   getData(): Message {
