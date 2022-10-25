@@ -22,6 +22,7 @@
           "apps/my-beautiful-ui/src/assets"
         ],
         "styles": [
+          "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
           "apps/my-beautiful-ui/src/styles.scss"
         ],
         "scripts": []

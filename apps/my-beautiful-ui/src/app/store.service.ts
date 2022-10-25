@@ -17,10 +17,16 @@ const defaultState: State = {
 
 @Injectable()
 export class Store {
-  private state$ = new BehaviorSubject<State>(defaultState);
+  private _state$ = new BehaviorSubject<State>(defaultState);
+
+  public state$ = this._state$.asObservable();
+
+  getValue() {
+    return this._state$.getValue();
+  }
 
   setState(stateFn: (state: State) => Partial<State>) {
-    this.state$.next(stateFn(this.state$.getValue()));
+    this._state$.next(stateFn(this._state$.getValue()));
   }
 
 }
