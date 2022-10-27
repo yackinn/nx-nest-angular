@@ -94,6 +94,7 @@
     "@types/session-file-store": "^1.2.2",
     "@typescript-eslint/eslint-plugin": "^5.36.1",
     "@typescript-eslint/parser": "^5.36.1",
+    "autoprefixer": "^10.4.0",
     "cypress": "^10.7.0",
     "eslint": "~8.15.0",
     "eslint-config-prettier": "8.1.0",
@@ -102,8 +103,10 @@
     "jest-environment-jsdom": "28.1.1",
     "jest-preset-angular": "~12.2.2",
     "nx": "15.0.1",
+    "postcss": "^8.4.5",
     "prettier": "^2.6.2",
     "session-file-store": "^1.5.0",
+    "tailwindcss": "^3.0.2",
     "ts-jest": "28.0.5",
     "ts-node": "10.9.1",
     "typescript": "~4.8.2"

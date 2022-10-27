@@ -21,5 +21,10 @@ export class Booking extends BaseEntity {
 
   constructor(booking: CreateBookingDto) {
     super();
+    this.paymentMethod = booking.paymentMethod;
+    this.paid          = booking.paid;
+    this.reminded      = booking.reminded;
+    this.cancelled     = booking.cancelled;
+    this.notes         = booking.notes;
   }
 }

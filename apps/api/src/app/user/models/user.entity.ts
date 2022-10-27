@@ -1,8 +1,7 @@
 import { Entity, Property } from '@mikro-orm/core';
-import { BaseEntity }       from '../../shared/base.entity';
-import { CreateUserDto }    from '../webservice/dto/user.dtos';
+import { BaseEntity }  from '../../shared/base.entity';
+import { RegisterDto } from '../webservice/dto/user.dtos';
 
-// admin or driving school owner
 @Entity()
 export class User extends BaseEntity {
   @Property({ unique: true })
@@ -17,7 +16,7 @@ export class User extends BaseEntity {
   @Property({ hidden: true })
   password: string;
 
-  constructor(user: CreateUserDto) {
+  constructor(user: RegisterDto) {
     super();
     this.email     = user.email;
     this.firstName = user.firstName;

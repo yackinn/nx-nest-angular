@@ -1,23 +1,9 @@
-import { EntityRepository, UniqueConstraintViolationException } from '@mikro-orm/core';
-import {
-  InjectRepository
-}                                                               from '@mikro-orm/nestjs';
-import {
-  BadRequestException,
-  Injectable,
-  InternalServerErrorException,
-  Logger,
-  UnauthorizedException
-}                                                               from '@nestjs/common';
-import {
-  AuthService
-}                                                               from '../auth/auth.service';
-import {
-  User
-}                                                               from './models/user.entity';
-import {
-  CreateUserDto
-}                                                               from './webservice/dto/user.dtos';
+import { EntityRepository, UniqueConstraintViolationException }           from '@mikro-orm/core';
+import { InjectRepository }                                               from '@mikro-orm/nestjs';
+import { BadRequestException, Injectable, Logger, UnauthorizedException } from '@nestjs/common';
+import { AuthService }                                                    from '../auth/auth.service';
+import { User }                                                           from './models/user.entity';
+import { RegisterDto }                                                    from './webservice/dto/user.dtos';
 
 @Injectable()
 export class UserService {
@@ -30,7 +16,7 @@ export class UserService {
   ) {
   }
 
-  async register(createUserDto: CreateUserDto): Promise<any> {
+  async register(createUserDto: RegisterDto): Promise<User> {
     const user    = new User(createUserDto);
     user.password = await this.authService.hashPassword(createUserDto.password);
 
@@ -39,13 +25,13 @@ export class UserService {
 
       return user;
     } catch (err) {
-      throw err instanceof UniqueConstraintViolationException
-        ? new BadRequestException('Email already in use.')
-        : new InternalServerErrorException();
+      if (err instanceof UniqueConstraintViolationException) {
+        throw new BadRequestException('Email already in use.');
+      }
     }
   }
 
-  async validateUser(email: string, password: string): Promise<any> {
+  async validateUser(email: string, password: string): Promise<User> {
     const user = await this.userRepository.findOne({ email });
 
     if (!user) {

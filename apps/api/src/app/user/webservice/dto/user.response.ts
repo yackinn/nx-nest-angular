@@ -1,7 +1,8 @@
-import { ApiExpose } from '../../../shared/api-expose.decorator';
-import { BaseDto }   from '../../../shared/base.dto';
+import { IUserResponse } from '@nx-angular-nest/domain';
+import { ApiExpose }     from '../../../shared/api-expose.decorator';
+import { BaseDto }       from '../../../shared/base.dto';
 
-export class UserResponse extends BaseDto {
+export class UserResponse extends BaseDto implements IUserResponse {
   @ApiExpose()
   email: string;
 
@@ -11,5 +12,3 @@ export class UserResponse extends BaseDto {
   @ApiExpose()
   lastName?: string;
 }
-
-// **target=libs/core/domain/src/lib/user

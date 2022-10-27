@@ -22,8 +22,9 @@ export class LocalStrategy extends PassportStrategy(PassportLocalStrategy) {
 
   // whatever is returned will be attached to request.user
   public async validate(email: string, password: string): Promise<UserResponse> {
-    const result = await this.userService.validateUser(email, password);
-    return result;
+    const user = await this.userService.validateUser(email, password);
+
+    return user;
   }
 
 }

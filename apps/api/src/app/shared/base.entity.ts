@@ -11,8 +11,4 @@ export abstract class BaseEntity {
 
   @Property({ hidden: true, columnType: 'timestamptz', nullable: true, onUpdate: () => new Date() })
   updatedAt?: Date;
-
-  getEntityName() {
-    return this['__meta'].className;
-  }
 }

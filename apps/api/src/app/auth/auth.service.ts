@@ -6,6 +6,7 @@ export class AuthService {
   logger = new Logger(AuthService.name);
 
   async hashPassword(password: string): Promise<string> {
+    // non-blocking (async)
     return bcrypt.hash(password, 10);
   }
 

@@ -1,0 +1,40 @@
+<div class='container m-8'>
+
+  <h1>Login</h1>
+
+  <div class='flex'>
+    <form [formGroup]='form' class='m-auto' (submit)='onSubmitForm()'>
+      <div class='flex flex-wrap'>
+        <mat-form-field appearance='fill' class='w-1/2 px-4'>
+          <mat-label>Email</mat-label>
+          <input matInput
+                 placeholder='Email'
+                 [formControl]='form.controls.email'>
+          <mat-hint>Your Email</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance='fill' class='w-1/2 px-4'>
+          <mat-label>Password</mat-label>
+          <input matInput
+                 placeholder='Lastname'
+                 type='password'
+                 name='password'
+                 autocomplete='on'
+                 [formControl]='form.controls.password'>
+          <mat-hint>Your Password</mat-hint>
+        </mat-form-field>
+
+        <div class='m-auto mt-8'>
+          <button mat-raised-button
+                  type='submit'
+                  [disabled]='form.invalid'
+                  color='primary'
+          >Login
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+

@@ -1,7 +1,7 @@
 import { Routes }            from '@angular/router';
-import { LoginComponent }    from './login/login.component';
-import { ProfileComponent }  from './profile/profile.component';
-import { RegisterComponent } from './register/register.component';
+import { LoginComponent }    from './components/login/login.component';
+import { ProfileComponent }  from './components/profile/profile.component';
+import { RegisterComponent } from './components/register/register.component';
 import { IsLoggedInGuard }   from './shared/is-logged-in.guard';
 
 export const ROUTES: Routes = [

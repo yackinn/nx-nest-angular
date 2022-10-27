@@ -1,19 +1,20 @@
 import { HttpClientModule }     from '@angular/common/http';
 import { NgModule }             from '@angular/core';
 import { ReactiveFormsModule }  from '@angular/forms';
+import { MatButtonModule }      from '@angular/material/button';
 import { MatFormFieldModule }   from '@angular/material/form-field';
 import { MatInputModule }       from '@angular/material/input';
 import { BrowserModule }        from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule }         from '@angular/router';
 import { TransferStateService } from '@nxarch/nguniversal';
-
-import { AppComponent }      from './app.component';
-import { LoginComponent }    from './login/login.component';
-import { ProfileComponent }  from './profile/profile.component';
-import { RegisterComponent } from './register/register.component';
-import { ROUTES }            from './routes';
-import { State, Store }      from './store.service';
+import { AppComponent }         from './app.component';
+import { LoginComponent }       from './components/login/login.component';
+import { ProfileComponent }     from './components/profile/profile.component';
+import { RegisterComponent }    from './components/register/register.component';
+import { State, Store }         from './data/store.service';
+import { ROUTES }               from './routes';
+import { TransferState }        from './shared/transfer-state.enum';
 
 @NgModule({
   declarations: [
@@ -26,19 +27,23 @@ import { State, Store }      from './store.service';
     BrowserModule.withServerTransition({ appId: 'ssrApp' }),
     HttpClientModule,
     RouterModule.forRoot(ROUTES),
+    HttpClientModule,
     // BrowserAnimationsModule,
     NoopAnimationsModule,
     MatFormFieldModule,
     ReactiveFormsModule,
-    MatInputModule
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [
     {
       provide: Store,
       useFactory: (transferStateService: TransferStateService) => {
         const store         = new Store();
-        const receivedState = transferStateService.get<State>('state');
-        if (receivedState) store.setState((state) => receivedState);
+        const receivedState = transferStateService.get<State>(TransferState.State);
+        if (receivedState) store.setState(() => receivedState);
+
+        console.log('receivedState', receivedState);
 
         return store;
       },

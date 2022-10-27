@@ -13,28 +13,9 @@ interface CustomOptions {
 type Options = ApiPropertyOptions & ExposeOptions & TypeOptions & CustomOptions;
 type TypeFn = (type?: TypeHelpOptions) => NType;
 
-/**
- *
- * @param type TypeFn
- */
 export function ApiExpose(type?: TypeFn);
-/**
- *
- * @param config Options
- */
 export function ApiExpose(config?: Options);
-/**
- *
- * @param type TypeFn
- * @param config Options
- */
 export function ApiExpose(type?: TypeFn, config?: Options);
-/**
- *
- * @param configOrType TypeFn | Options
- * @param config Options
- * @returns TFunction
- */
 export function ApiExpose(configOrType?: TypeFn | Options, config?: Options) {
   let typeFn: TypeFn | undefined;
   let _options: Options | undefined = config;

@@ -1,10 +1,4 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class BookingService {
-
-  constructor() {
-
-  }
-
-}
+export class BookingService {}

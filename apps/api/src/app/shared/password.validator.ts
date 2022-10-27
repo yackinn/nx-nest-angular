@@ -1,11 +1,12 @@
-import { applyDecorators }                         from '@nestjs/common';
-import { IsString, Matches, MaxLength, MinLength } from 'class-validator';
+import { applyDecorators }                                          from '@nestjs/common';
+import { PASSWORD_MAX_LENGTH, PASSWORD_MIN_LENGTH, PASSWORD_REGEX } from '@nx-angular-nest/domain';
+import { IsString, Matches, MaxLength, MinLength }                  from 'class-validator';
 
 export function Password() {
   return applyDecorators(
     IsString(),
-    MinLength(4),
-    MaxLength(20),
-    Matches(/((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, { message: 'Password too weak' })
+    MinLength(PASSWORD_MIN_LENGTH),
+    MaxLength(PASSWORD_MAX_LENGTH),
+    Matches(PASSWORD_REGEX, { message: 'Password too weak' })
   );
 }

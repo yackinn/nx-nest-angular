@@ -1,18 +1,13 @@
 import { Injectable }      from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-
-interface User {
-  email: string;
-  firstName?: string;
-  lastName?: string;
-}
+import { User }            from '../shared/user.type';
 
 export interface State {
-  user?: User;
+  user?: User | null;
 }
 
 const defaultState: State = {
-  user: undefined
+  user: null
 };
 
 @Injectable()
@@ -26,7 +21,7 @@ export class Store {
   }
 
   setState(stateFn: (state: State) => Partial<State>) {
-    this._state$.next(stateFn(this._state$.getValue()));
+    this._state$.next(stateFn(this.getValue()));
   }
 
 }

@@ -1,0 +1,9 @@
+<div class='container m-8'>
+  <div class='mx-auto' *ngIf='(user$ | async) as user'>
+    <h1>Hey, {{user.firstName}}</h1>
+    <h4>According to your session your logged in.</h4>
+    <h4>That's your lastname: <strong>{{user.lastName}}</strong>.<br>
+      And That's your email: <strong>{{user.email}}</strong>.
+    </h4>
+  </div>
+</div>

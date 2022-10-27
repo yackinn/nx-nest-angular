@@ -1,0 +1,16 @@
+{
+  "State": {
+    "user": {
+      "id": "3666c126-dadd-4e66-b254-6d3182883037",
+      "email": "jone@doe.com",
+      "firstName": "John",
+      "lastName": "Doe"
+    }
+  },
+  "User": {
+    "id": "3666c126-dadd-4e66-b254-6d3182883037",
+    "email": "jone@doe.com",
+    "firstName": "John",
+    "lastName": "Doe"
+  }
+}

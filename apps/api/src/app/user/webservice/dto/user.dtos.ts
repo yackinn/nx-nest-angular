@@ -1,9 +1,9 @@
 import { PartialType }                   from '@nestjs/swagger';
+import { IRegisterDto }                  from '@nx-angular-nest/domain';
 import { IsEmail, IsOptional, IsString } from 'class-validator';
-import { BaseDto }                       from '../../../shared/base.dto';
 import { Password }                      from '../../../shared/password.validator';
 
-export class CreateUserDto extends BaseDto {
+export class RegisterDto implements IRegisterDto {
   @IsEmail()
   email: string;
 
@@ -19,6 +19,7 @@ export class CreateUserDto extends BaseDto {
   lastName?: string;
 }
 
-export class UpdateUserDto extends PartialType(CreateUserDto) {}
-
-// **target=libs/core/domain/src/lib/user
+export class UpdateUserDto extends PartialType(RegisterDto) {
+  @IsString()
+  id: string;
+}

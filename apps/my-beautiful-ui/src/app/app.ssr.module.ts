@@ -1,3 +1,4 @@
+import { HTTP_INTERCEPTORS }    from '@angular/common/http';
 import { NgModule }             from '@angular/core';
 import { ServerModule }         from '@angular/platform-server';
 import { REQUEST }              from '@nguniversal/express-engine/tokens';
@@ -5,13 +6,19 @@ import { TransferStateService } from '@nxarch/nguniversal';
 import { Request }              from 'express';
 import { AppBrowserModule }     from './app.browser.module';
 import { AppComponent }         from './app.component';
-import { Store }                from './store.service';
+import { Store }                from './data/store.service';
+import { CookieInterceptor }    from './shared/cookie.interceptor';
+import { TransferState }        from './shared/transfer-state.enum';
 
-export function onAppInit(request: Request, store: Store) {
-  return () => {
-    console.log('user', (request as any).user);
-    store.setState((state) => ({ user: { email: 'yes@yes.com', ...state.user } }));
-  };
+
+export function initStore(request: Request, transferStateService: TransferStateService) {
+  const store = new Store();
+  store.setState(() => ({ user: (request as any).user ?? null }));
+  transferStateService.set(TransferState.State, store.getValue());
+
+  console.log('sent to frontend via transfer state', store.getValue());
+
+  return store;
 }
 
 @NgModule({
@@ -21,14 +28,13 @@ export function onAppInit(request: Request, store: Store) {
   ],
   providers: [
     {
+      provide: HTTP_INTERCEPTORS,
+      useClass: CookieInterceptor,
+      multi: true
+    },
+    {
       provide: Store,
-      useFactory: (request: Request, transferStateService: TransferStateService) => {
-        const store = new Store();
-        store.setState((state => ({ user: (request as any).user })));
-        transferStateService.set('state', store.getValue());
-
-        return store;
-      },
+      useFactory: initStore,
       deps: [REQUEST, TransferStateService]
     }
   ],
