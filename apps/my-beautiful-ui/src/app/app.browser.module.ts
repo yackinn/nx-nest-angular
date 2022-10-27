@@ -28,7 +28,6 @@ import { TransferState }        from './shared/transfer-state.enum';
     HttpClientModule,
     RouterModule.forRoot(ROUTES),
     HttpClientModule,
-    // BrowserAnimationsModule,
     NoopAnimationsModule,
     MatFormFieldModule,
     ReactiveFormsModule,
@@ -42,8 +41,6 @@ import { TransferState }        from './shared/transfer-state.enum';
         const store         = new Store();
         const receivedState = transferStateService.get<State>(TransferState.State);
         if (receivedState) store.setState(() => receivedState);
-
-        console.log('receivedState', receivedState);
 
         return store;
       },

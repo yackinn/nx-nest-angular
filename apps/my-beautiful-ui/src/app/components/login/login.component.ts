@@ -10,7 +10,6 @@ import { ControlsOf }                         from '../../shared/utility.types';
 
 @Component({
   selector: 'ui-login',
-  styleUrls: ['./login.component.scss'],
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
@@ -32,8 +31,6 @@ export class LoginComponent {
   ) {}
 
   onSubmitForm() {
-    console.log('submit', this.form.getRawValue());
-
     this.apiService.login(this.form.getRawValue())
       .pipe(
         take(1),

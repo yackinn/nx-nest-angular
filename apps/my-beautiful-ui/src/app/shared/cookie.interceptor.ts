@@ -7,6 +7,7 @@ import { Request }                                                           fro
 import { Observable }                                                        from 'rxjs';
 
 // todo find a better way for authenticating user
+// use custom cookie and update passport authentication
 const xhr2                               = require('xhr2');
 xhr2.prototype._restrictedHeaders.cookie = false;
 
@@ -19,7 +20,6 @@ export class CookieInterceptor implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let headers = new HttpHeaders();
 
-    console.log('cookie', this.request.get('cookie'));
     headers = headers.set('cookie', this.request.get('cookie')!);
 
     const _req = req.clone({
@@ -27,7 +27,6 @@ export class CookieInterceptor implements HttpInterceptor {
       headers: headers,
     });
 
-    console.log('intercepted; cookie set', _req.headers.get('forwarded-cookie'));
     return next.handle(_req);
   }
 }

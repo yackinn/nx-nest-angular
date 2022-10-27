@@ -9,8 +9,7 @@ import { ControlsOf }                         from '../../shared/utility.types';
 
 @Component({
   selector: 'ui-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  templateUrl: './register.component.html'
 })
 export class RegisterComponent {
   form = new FormGroup<ControlsOf<RegisterForm>>({
@@ -32,8 +31,6 @@ export class RegisterComponent {
   ) {}
 
   onSubmitForm() {
-    console.log('register', this.form.getRawValue());
-
     this.apiService.register(this.form.getRawValue())
       .pipe(
         take(1),

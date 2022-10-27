@@ -6,6 +6,7 @@ import { AuthModule }                      from './auth/auth.module';
 import { BookingModule }                   from './booking/booking.module';
 import { COMPILED_SSR_BUNDLE, VIEWS_PATH } from './constants';
 import { RenderModule }                    from './render.module';
+import { MemoryCacheStorage }              from './shared/render-cache';
 import { UserModule }                      from './user/user.module';
 
 @Module({
@@ -14,7 +15,7 @@ import { UserModule }                      from './user/user.module';
       bootstrap: COMPILED_SSR_BUNDLE,
       viewsPath: VIEWS_PATH,
       useCustomRenderEndpoint: true,
-      // cache: { storage: { useClass: MemoryCacheStorage } }
+      cache: { storage: { useClass: MemoryCacheStorage } }
     }),
     MikroOrmModule.forRoot(ormConfig),
     UserModule,

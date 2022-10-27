@@ -20,7 +20,6 @@ export class IsLoggedInGuard implements CanActivate {
     state: RouterStateSnapshot
   ): boolean | UrlTree {
     const isLoggedIn = !!this.store.getValue().user;
-    console.log('IsLoggedInGuard', isLoggedIn);
 
     return isLoggedIn || this.router.createUrlTree(['/login']);
   }

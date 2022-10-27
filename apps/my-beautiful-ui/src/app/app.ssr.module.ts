@@ -16,8 +16,6 @@ export function initStore(request: Request, transferStateService: TransferStateS
   store.setState(() => ({ user: (request as any).user ?? null }));
   transferStateService.set(TransferState.State, store.getValue());
 
-  console.log('sent to frontend via transfer state', store.getValue());
-
   return store;
 }
 
